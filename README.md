@@ -1,4 +1,4 @@
-# Android Project Github Template
+# Android Project Github Template Sample
 
 [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
