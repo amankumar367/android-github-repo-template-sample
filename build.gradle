@@ -1,0 +1,32 @@
+import dependencies.Dependencies
+import dependencies.MavenUrls
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        maven { url MavenUrls.JITPACK_IO}
+    }
+    dependencies {
+        classpath Dependencies.ClassPaths.gradleClasspath
+        classpath Dependencies.ClassPaths.kotlinGradlePluginClasspath
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url MavenUrls.JITPACK_IO}
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+subprojects { subProject ->
+    //this allows to run detekt or ktlint for a specific module
+    // example usage: ./gradlew :data:ktlintFormat
+    apply from: "$project.rootDir/app/code-quality.gradle"
+}

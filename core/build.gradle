@@ -1,0 +1,64 @@
+import dependencies.Dependencies
+import dependencies.Version
+
+apply plugin: Dependencies.Plugins.ANDROID_LIBRARY
+apply plugin: Dependencies.Plugins.KOTLIN_ANDROID
+apply plugin: Dependencies.Plugins.KOTLIN_ANDROID_EXTENSIONS
+apply plugin: Dependencies.Plugins.KOTLIN_KAPT
+
+android {
+    compileSdkVersion Version.compileSdk
+    buildToolsVersion Version.buildTools
+
+    defaultConfig {
+        minSdkVersion Version.minSdk
+        targetSdkVersion Version.targetSdk
+        versionCode Version.versionCode
+        versionName Version.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    kotlinOptions {
+        jvmTarget = Version.jvmTarget
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Dependencies.Kotlin.kotlin_stdlib_jdk7
+
+    //Android X
+    implementation Dependencies.AndroidX.appcompat
+    implementation Dependencies.AndroidX.materialDesign
+    implementation Dependencies.AndroidX.constraintlayout
+    implementation Dependencies.AndroidX.vectordrawable
+    implementation Dependencies.AndroidX.core
+
+    //Testing
+    testImplementation Dependencies.Test.test_junit
+    androidTestImplementation Dependencies.Test.android_test_espresso_core
+
+    //LifeCycle
+    implementation Dependencies.Lifecycle.lifeCycleExtension
+}
